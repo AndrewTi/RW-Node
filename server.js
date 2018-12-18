@@ -1,7 +1,6 @@
 // SET ENV
 require('./env.config').run();
 
-
 // CONNECT TO MONGODB
 const MongoConnect = require('./db');
 MongoConnect();
@@ -17,6 +16,8 @@ app
     .use(cors())
     .use(body.json())
 
+
+    // custom error handling
     .use((err, req, res, next) => {
         if(err.name == "CustomError") {
             return res.json({
@@ -29,6 +30,4 @@ app
     })
 
 
-app.listen(process.env.PORT,() => {
-    console.log('server is runned on port:', process.env.PORT);
-});
+app.listen(process.env.PORT);
