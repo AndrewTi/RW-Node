@@ -5,6 +5,8 @@ module.exports = {
       env: {
         ENV: 'development'
       },
-      watch: ['api', 'libs', 'envs']
+      watch: ['api', 'libs', 'envs', 'server.js']
     }]
   };
+
+  
