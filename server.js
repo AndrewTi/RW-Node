@@ -9,6 +9,8 @@ const express  = require('express');
 const body     = require('body-parser');
 const cors     = require('cors');
 
+const api = require('./api');
+
 const app = express();
 
 app
@@ -16,6 +18,7 @@ app
     .use(cors())
     .use(body.json())
 
+    .use('/api', api)
 
     // custom error handling
     .use((err, req, res, next) => {
