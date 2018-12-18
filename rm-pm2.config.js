@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
-      name      : 'rm',
+      name      : 'RW',
       script    : 'server.js',
       env: {
         ENV: 'development'
