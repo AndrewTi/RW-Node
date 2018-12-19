@@ -10,6 +10,8 @@ else
     mongoURL = `mongodb://${MONGO_URL}:${MONGO_PORT}/${MONGODB_NAME}` ;
 
 module.exports = () => {
+    mongoose.set('useCreateIndex', true);
+    
     mongoose.connect(mongoURL, {autoReconnect: true, useNewUrlParser: true}).catch(err => {
         console.log(err);
         return err;
