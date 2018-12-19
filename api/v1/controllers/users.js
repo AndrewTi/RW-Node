@@ -1,8 +1,9 @@
 const passwordHash = require('password-hash');
 const validator    = require('validator');
 
-const User = require('../models/users');
 const AppError = require('../../../libs/app-error');
+const User     = require('../models/users');
+const token    = require('../../../libs/token');
 
 /**
  * @apiDefine UserData
@@ -75,7 +76,18 @@ module.exports = {
         if(!user)
             return next( new AppError(500) );
 
+        const { token: generatedToken, expDate } = token.sign(user._id);
         
+        user.update({ $push: {
+            tokens: {
+                token: generatedToken,
+                exp: expDate,
+                device: 'none',
+                last_use: new Date()
+            }
+        }})
+
+        res.json({ user, token: generatedToken });
     },
 
 

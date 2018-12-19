@@ -22,17 +22,31 @@ const setExpDate = type => {
 }
 
 module.exports = {
-    create(id, type) {
+    /**
+     * 
+     * @param {String} id 
+     * @param {String=} type 
+     * 
+     * @returns {String}
+     */
+    create(id, type = null) {
         let expDate = setExpDate(type);
 
-        return jwt.sign(
+        const token = jwt.sign(
             { iss: id },
             JWT_SECRET,
             { algorithm: JWT_ALG, expiresIn: expDate}
         )
+
+        return { token, expDate };
     },
 
-    decode: (token, cb) => {
+    /**
+     * 
+     * @param {String} token 
+     * @param {Function} cb 
+     */
+    decode(token, cb) {
         jwt.verify(token, config.jwt.secret, cb);
     }
 }
