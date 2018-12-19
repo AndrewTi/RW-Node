@@ -37,7 +37,21 @@ module.exports = {
      * @apiUse UserData
      */
     async create(req, res, next) {
+        const data = {
+            // required
+            email,
+            password,
+            
+            // not required
+            name,
+            last_name,
+            phone
+        } = req.body;
 
+        if(!email || !password)
+            return next( new AppError(400) );
+
+        const user = await User.create(data);
     },
 
     async get(req, res, next) {},

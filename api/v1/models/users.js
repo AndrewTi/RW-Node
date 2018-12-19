@@ -7,7 +7,14 @@ const User = new Schema({
     email: { type: String, lowercase: true, index: { unique: true }, required: true},
     phone: { type: Number, index: { unique: true }},
     password: { type: String, select: false, required: true },
-    last_login: Date
+    last_login: Date,
+    tokens: { type: Array, select: false, default: [
+        {
+            token: String,
+            exp: Date,
+            device: String,
+        }
+    ]}
 }, { timestamps: true, collection: 'users' });
 
 
