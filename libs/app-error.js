@@ -14,8 +14,12 @@ const messages = {
   };
   
   /**
+   * @constructor
+   * 
    * @param {Number=} code
    * @param {String=} message
+   * 
+   * @returns {Object}
    */
 module.exports = function CustomError(code = 500, message) {
     this.name = this.constructor.name;
