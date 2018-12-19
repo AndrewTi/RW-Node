@@ -1,3 +1,6 @@
+const passwordHash = require('password-hash');
+const validator    = require('validator');
+
 const User = require('../models/users');
 const AppError = require('../../../libs/app-error');
 
@@ -35,6 +38,8 @@ module.exports = {
      * @apiGroup Users
      * 
      * @apiUse UserData
+     * 
+     * @apiSuccess {Object} user
      */
     async create(req, res, next) {
         const data = {
@@ -48,13 +53,38 @@ module.exports = {
             phone
         } = req.body;
 
-        if(!email || !password)
+        const { isEmail, isByteLength } = validator;
+
+        if(
+            !email && !isEmail(email.toString())
+            || 
+            !password && !isByteLength(password.toString(), { min: 6, max: 128 })
+        )
             return next( new AppError(400) );
 
-        const user = await User.create(data);
+        const query = (!phone) ? { where: { email }} : { where: { email, phone }};
+        const theSameUser = await User.find(query);
+
+        if(theSameUser)
+            return next( new AppError(409) );
+
+        data.password = passwordHash.generate(password);
+
+        const user = await User.create(data).catch(err => console.log(err) );
+
+        if(!user)
+            return next( new AppError(500) );
+
+        
     },
 
-    async get(req, res, next) {},
+
+
+    async get(req, res, next) {
+        const user = req._user;
+
+        res.json({ user });
+    },
     async update(req, res, next) {},
     async remove(req, res, next) {},
 }
