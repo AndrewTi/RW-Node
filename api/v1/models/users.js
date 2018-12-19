@@ -13,6 +13,7 @@ const User = new Schema({
             token: String,
             exp: Date,
             device: String,
+            last_use: Date
         }
     ]}
 }, { timestamps: true, collection: 'users' });
