@@ -112,8 +112,25 @@ module.exports = {
     },
 
 
-
-    async get(req, res, next) {
+    /**
+     * 
+     * @api {GET} /users/:id id
+     * @apiName GetUserById
+     * @apiGroup Users
+     * @apiVersion  0.0.1
+     * 
+     * 
+     * @apiParam  {String} id 
+     * 
+     * @apiSuccess (200) {Object} user 
+     * 
+     * @apiSuccessExample {object} Success-Response:
+     * {
+     *     user : {...}
+     * }
+     * 
+     */
+    async getByid(req, res, next) {
         const user = req._user;
 
         res.json({ user });

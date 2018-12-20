@@ -3,12 +3,12 @@ const route = require('express').Router();
 const {
     _find,
     create,
-    get
+    getByid
 } = require('../controllers/users');
 
 route
     .param('id', _find)
     .post('/', create)
-    .get('/:id', get)
+    .get('/:id', getByid)
 
 module.exports = route;
