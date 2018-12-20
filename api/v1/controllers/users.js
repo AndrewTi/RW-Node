@@ -40,31 +40,52 @@ module.exports = {
      * 
      * @apiUse UserData
      * 
-     * @apiSuccess {Object} user
+     * @apiSuccess {String} token
      */
     async create(req, res, next) {
+        console.log('test');
+        const device = (req._device) ? req._device.type : 'undefined';
         const data = {
             // required
-            email,
             password,
+
+            // one of them can't be empty
+            email,
+            phone,
             
             // not required
             name,
             last_name,
-            phone
         } = req.body;
 
-        const { isEmail, isByteLength } = validator;
+        if(!email || !phone && !password)
+            return next( new AppError(400))
 
-        if(
-            !email && !isEmail(email.toString())
-            || 
-            !password && !isByteLength(password.toString(), { min: 6, max: 128 })
-        )
+        const { isEmail, isMobilePhone, isByteLength } = validator;
+
+        let checkPhone = '';
+
+        if(phone)
+            checkPhone = (phone[0] == '+') ? phone : '+' + phone;
+
+        if(!(
+            isEmail(email.toString()) || isMobilePhone(checkPhone)
+            &&
+            isByteLength(password.toString(), { min: 6, max: 128 })
+        ))
             return next( new AppError(400) );
 
-        const query = (!phone) ? { where: { email }} : { where: { email, phone }};
-        const theSameUser = await User.find(query);
+        let query = null;
+        
+        if(checkPhone && email) {
+            query = { email, phone };
+        }else if(email) {
+            query = { email };
+        } else {
+            query = { phone };
+        }
+
+        const theSameUser = await User.findOne(query);
 
         if(theSameUser)
             return next( new AppError(409) );
@@ -76,18 +97,18 @@ module.exports = {
         if(!user)
             return next( new AppError(500) );
 
-        const { token: generatedToken, expDate } = token.sign(user._id);
+        const { token: generatedToken, expDate } = token.create(user._id);
         
-        user.update({ $push: {
+        await user.updateOne({ $push: {
             tokens: {
                 token: generatedToken,
                 exp: expDate,
-                device: 'none',
+                device: device,
                 last_use: new Date()
             }
-        }})
+        }}).catch(err => console.log(err));
 
-        res.json({ user, token: generatedToken });
+        res.json({ token: generatedToken });
     },
 
 

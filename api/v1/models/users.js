@@ -4,8 +4,8 @@ const Schema   = mongoose.Schema;
 const User = new Schema({
     name: String,
     last_name: String,
-    email: { type: String, lowercase: true, index: { unique: true }, required: true},
-    phone: { type: Number, index: { unique: true }},
+    email: { type: String, lowercase: true, index: { unique: true }},
+    phone: { type: Number, default: null, index: { unique: true, partialFilterExpression: { phone: { $type: Schema.Types.Number }}}},
     password: { type: String, select: false, required: true },
     last_login: Date,
     tokens: { type: Array, select: false, default: [

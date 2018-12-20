@@ -30,7 +30,7 @@ module.exports = {
      * @returns {String}
      */
     create(id, type = null) {
-        let expDate = setExpDate(type);
+        let expDate = +setExpDate(type);
 
         const token = jwt.sign(
             { iss: id },

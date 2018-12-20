@@ -26,6 +26,7 @@ app
         const info = detector.detect(userAgent);
 
         req._device = info.device;
+        console.log('test')
         next();
     })
 
