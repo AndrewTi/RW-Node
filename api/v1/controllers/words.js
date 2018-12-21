@@ -1,4 +1,6 @@
 module.exports = {
+    async _find(req, res, next) {},
+    
     async translate(req, res, next) {
 
     },
@@ -8,5 +10,4 @@ module.exports = {
     async remove(req, res, next) {},
 
     async update(req, res, next) {}
-
 }
