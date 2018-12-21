@@ -2,8 +2,7 @@
 require('./env.config').run();
 
 // CONNECT TO MONGODB
-const MongoConnect = require('./db');
-MongoConnect();
+require('./db')();
 
 const express  = require('express');
 const Device   = require('node-device-detector');
@@ -37,7 +36,6 @@ app
         if(err.name == "CustomError") {
             return res.json({
                 error: true,
-                ok: false,
                 code: err.statusCode || 500,
                 message: err.message
             });

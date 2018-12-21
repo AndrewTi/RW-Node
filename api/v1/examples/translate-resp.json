@@ -1,0 +1,148 @@
+{
+    "sentences": [{
+        "trans": "робота",
+        "orig": "work",
+        "backend": 3
+    }],
+    "dict": [{
+        "pos": "дієслово",
+        "terms": ["використовувати", "відробляти", "діяти", "обробляти", "працювати", "робити", "займатися рукоділлям", "служити", "творити", "трудитися", "виманити", "приводити в рух", "спрацьовуватися", "виманювати", "рухатися", "спричиняти"],
+        "entry": [{
+            "word": "використовувати",
+            "reverse_translation": ["use", "exploit", "work", "embrace"]
+        }, {
+            "word": "відробляти",
+            "reverse_translation": ["work"]
+        }, {
+            "word": "діяти",
+            "reverse_translation": ["act", "operate", "work", "do", "proceed", "run"]
+        }, {
+            "word": "обробляти",
+            "reverse_translation": ["process", "cultivate", "work", "till", "finish", "work up"]
+        }, {
+            "word": "працювати",
+            "reverse_translation": ["work", "operate", "act", "labor", "open", "go"]
+        }, {
+            "word": "робити",
+            "reverse_translation": ["do", "make", "work", "put", "proceed"]
+        }, {
+            "word": "займатися рукоділлям",
+            "reverse_translation": ["work"]
+        }, {
+            "word": "служити",
+            "reverse_translation": ["serve", "minister", "work", "wait", "answer"]
+        }, {
+            "word": "творити",
+            "reverse_translation": ["create", "do", "work", "perform"]
+        }, {
+            "word": "трудитися",
+            "reverse_translation": ["work", "labor", "toil", "drudge", "labour"]
+        }, {
+            "word": "виманити",
+            "reverse_translation": ["coax", "wheedle out", "cajole", "chouse", "work"]
+        }, {
+            "word": "приводити в рух",
+            "reverse_translation": ["actuate", "operate", "impel", "work", "gear"]
+        }, {
+            "word": "спрацьовуватися",
+            "reverse_translation": ["wear", "be worn out", "work"]
+        }, {
+            "word": "виманювати",
+            "reverse_translation": ["chouse", "coax", "wheedle out", "cajole", "work"]
+        }, {
+            "word": "рухатися",
+            "reverse_translation": ["move", "travel", "run", "walk", "advance", "work"]
+        }, {
+            "word": "спричиняти",
+            "reverse_translation": ["cause", "entail", "induce", "generate", "evoke", "work"]
+        }],
+        "base_form": "work",
+        "pos_enum": 2
+    }, {
+        "pos": "іменник",
+        "terms": ["виріб", "вчинок", "заняття", "посада", "праця", "робота", "служба", "твір", "творіння", "вишивка", "діло", "обробка", "продукція", "рукоділля", "труд", "дія"],
+        "entry": [{
+            "word": "виріб",
+            "reverse_translation": ["product", "production", "work", "manufacture", "handiwork", "fabrication"],
+            "gender": 1
+        }, {
+            "word": "вчинок",
+            "reverse_translation": ["act", "action", "deed", "work", "gesture", "proceeding"],
+            "gender": 1
+        }, {
+            "word": "заняття",
+            "reverse_translation": ["occupation", "lesson", "pursuit", "work", "study", "school"],
+            "gender": 3
+        }, {
+            "word": "посада",
+            "reverse_translation": ["position", "post", "office", "seat", "capacity", "work"],
+            "gender": 2
+        }, {
+            "word": "праця",
+            "reverse_translation": ["work", "labor", "job", "employment", "service", "occupation"],
+            "gender": 2
+        }, {
+            "word": "робота",
+            "reverse_translation": ["work", "job", "labor", "working", "operation", "performance"],
+            "gender": 2
+        }, {
+            "word": "служба",
+            "reverse_translation": ["service", "office", "department", "job", "work", "corps"],
+            "gender": 2
+        }, {
+            "word": "твір",
+            "reverse_translation": ["work", "writing", "composition", "creation", "publication"],
+            "gender": 1
+        }, {
+            "word": "творіння",
+            "reverse_translation": ["creation", "work"],
+            "gender": 3
+        }, {
+            "word": "вишивка",
+            "reverse_translation": ["embroidery", "needlework", "broidery", "work"],
+            "gender": 2
+        }, {
+            "word": "діло",
+            "reverse_translation": ["work", "business", "thing", "cause", "deed", "matter"],
+            "gender": 3
+        }, {
+            "word": "обробка",
+            "reverse_translation": ["processing", "finishing", "machining", "working", "cultivation", "work"],
+            "gender": 2
+        }, {
+            "word": "продукція",
+            "reverse_translation": ["product", "production", "produce", "output", "outturn", "work"],
+            "gender": 2
+        }, {
+            "word": "рукоділля",
+            "reverse_translation": ["needlework", "handiwork", "work"],
+            "gender": 3
+        }, {
+            "word": "труд",
+            "reverse_translation": ["labor", "work", "toil", "labour"],
+            "gender": 1
+        }, {
+            "word": "дія",
+            "reverse_translation": ["action", "performance", "effect", "act", "operation", "work"],
+            "gender": 2
+        }],
+        "base_form": "work",
+        "pos_enum": 1
+    }, {
+        "pos": "прикметник",
+        "terms": ["робітний"],
+        "entry": [{
+            "word": "робітний",
+            "reverse_translation": ["work"]
+        }],
+        "base_form": "work",
+        "pos_enum": 3
+    }],
+    "src": "en",
+    "confidence": 1,
+    "ld_result": {
+        "srclangs": ["en"],
+        "srclangs_confidences": [1],
+        "extended_srclangs": ["en"]
+    }
+}

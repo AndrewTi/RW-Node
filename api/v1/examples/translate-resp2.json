@@ -1,0 +1,14 @@
+{
+    "sentences": [{
+        "trans": "працюй зі мною",
+        "orig": "work with me",
+        "backend": 3
+    }],
+    "src": "en",
+    "confidence": 1,
+    "ld_result": {
+        "srclangs": ["en"],
+        "srclangs_confidences": [1],
+        "extended_srclangs": ["en"]
+    }
+}
