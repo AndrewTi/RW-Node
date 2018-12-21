@@ -1,5 +1,6 @@
-const Words    = require('../models/words');
-const AppError = require('../../../libs/app-error');
+const transalte = require('../../../libs/translate');
+const AppError  = require('../../../libs/app-error');
+const Words     = require('../models/words');
 
 module.exports = {
     async _find(req, res, next) {},
@@ -26,17 +27,19 @@ module.exports = {
      * 
      * @apiSuccessExample {JSON} Success-Response:
      * {
-            "sentences": [{
-                "trans": "працюй зі мною",
-                "orig": "work with me",
-                "backend": 3
-            }],
-            "src": "en",
-            "confidence": 1,
-            "ld_result": {
-                "srclangs": ["en"],
-                "srclangs_confidences": [1],
-                "extended_srclangs": ["en"]
+            "transalte": {
+                "sentences": [{
+                    "trans": "працюй зі мною",
+                    "orig": "work with me",
+                    "backend": 3
+                }],
+                "src": "en",
+                "confidence": 1,
+                "ld_result": {
+                    "srclangs": ["en"],
+                    "srclangs_confidences": [1],
+                    "extended_srclangs": ["en"]
+                }
             }
         }
      * 
@@ -48,16 +51,45 @@ module.exports = {
         if(!target || !text)
             return next( new AppError(400));
 
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${source}&tl=${target}&dt=bd&dj=1&source=input&dt=t&q=` + encodeURI(text);
-        const transl = await fetch(url).then(response => response.json()).catch(err => console.log(err));
+        const transl = await transalte(source, target, text).catch(err => console.log(err));
 
         if(!transl)
             return next( new AppError(500))
 
-        res.json(transl);
+        res.json({ transalte: transl });
     },
 
-    async add(req, res, next) {},
+    async add(req, res, next) {
+        const { source = 'auto', target, text, href, collection_id } = req.body;
+        const user = req._authUser;
+
+        if(!target || !text || !collection_id)
+            return next( new AppError(400));
+        
+        const transl = await transalte(source, target, text).catch(err => console.log(err));
+
+        if(!transl)
+            return next( new AppError(500))
+
+            // need to create collection model
+            
+        // const collection = await Collection.findOne({ _id: collection_id, user_id: user._id });
+
+        // if(!collection)
+        //     return next( new AppError(404));
+
+        // await collection.update({
+        //     $push: {
+        //         words: {
+        //             //...
+        //         }
+        //     }
+        // })
+
+        
+
+
+    },
 
     async update(req, res, next) {},
 
