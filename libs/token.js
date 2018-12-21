@@ -27,7 +27,7 @@ module.exports = {
      * @param {String} id 
      * @param {String=} type 
      * 
-     * @returns {String}
+     * @returns {Object}
      */
     create(id, type = null) {
         let expDate = +setExpDate(type);
