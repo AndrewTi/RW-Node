@@ -4,7 +4,6 @@ const route = require('express').Router();
 //     .param('id', )
 //     .post('/', )
 //     .get('/', )
-//     .get('/all', )
 //     .get('/pdf' )
 //     .get('/pdf/source', )
 //     .get('/pdf/target', )

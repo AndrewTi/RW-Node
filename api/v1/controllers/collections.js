@@ -1,9 +1,38 @@
-module.exports = {
-    async _find(req, res, next) {},
+const Collection = require('../models/collections');
+const AppError = require('../../../libs/app-error');
 
-    async create(req, res, next) {},
-    async update(req, res, next) {},
+module.exports = {
+    async _find(req, res, next, id) {
+        const collection = await Collection.findById(id);
+
+        if(!collection)
+            return next( new AppError(404));
+
+        req._collection = collection;
+    },
+
+    async create(req, res, next) {
+        const user = req._authUser;
+        const { name } = req.body;
+
+        if(!name)
+            return next( new AppError(400));
+
+        const collection = await Collection.create({
+            user_id: user._id,
+            name
+        });
+
+        if(!collection)
+            return next( new AppError(500));
+
+        res.json({ collection });
+    },
+    async update(req, res, next) {
+        
+    },
     async remove(req, res, next) {},
+    async removeWrod(req, res, next) {},
 
     // words into files
     // get all words source --- target

@@ -10,7 +10,7 @@ const token    = require('../../../libs/token');
  * 
  * @apiParam {String} [name] name of user
  * @apiParam {String} [last_name] lastname of user
- * @apiParam {String} email 
+ * @apiParam {String} [email]
  * @apiParam {Number} [phone]
  * @apiParam {String} password
   */
