@@ -18,7 +18,8 @@ const Words = new Schema({
         pos_enun : Number
 
     }],
-    confidence: Number
-});
+    confidence: Number,
+    add_info: Object
+}, { timestamps: true, collection: 'words' });
 
 module.exports = mongoose.model('Words', Words);
