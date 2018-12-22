@@ -28,6 +28,7 @@ module.exports = {
 
         res.json({ collection });
     },
+    
     async update(req, res, next) {
         const collection = req._collection;
         const { name } = req.body;

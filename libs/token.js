@@ -47,6 +47,6 @@ module.exports = {
      * @param {Function} cb 
      */
     decode(token, cb) {
-        jwt.verify(token, config.jwt.secret, cb);
+        jwt.verify(token, JWT_SECRET, cb);
     }
 }
