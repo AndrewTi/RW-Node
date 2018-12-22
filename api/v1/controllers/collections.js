@@ -42,7 +42,17 @@ module.exports = {
 
         res.json({ ok: true });
     },
-    async remove(req, res, next) {},
+
+    async remove(req, res, next) {
+        const collection = req._collection;
+
+        const result = await collection.destroy();
+
+        if(!result)
+            return next( new AppError(500));
+
+        res.json({ ok:true });
+    },
     async removeWrod(req, res, next) {},
 
     // words into files
