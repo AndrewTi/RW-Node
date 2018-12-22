@@ -29,7 +29,18 @@ module.exports = {
         res.json({ collection });
     },
     async update(req, res, next) {
-        
+        const collection = req._collection;
+        const { name } = req.body;
+
+        if(!name)
+            return next( new AppError(400));
+
+        const result = await collection.update({ name });
+
+        if(!result)
+            return next( new AppError(500));
+
+        res.json({ ok: true });
     },
     async remove(req, res, next) {},
     async removeWrod(req, res, next) {},
