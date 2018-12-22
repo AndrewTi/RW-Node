@@ -43,7 +43,6 @@ module.exports = {
      * @apiSuccess {String} token
      */
     async create(req, res, next) {
-        console.log('test');
         const device = (req._device) ? req._device.type : 'undefined';
         const data = {
             // required

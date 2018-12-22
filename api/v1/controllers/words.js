@@ -61,7 +61,7 @@ module.exports = {
 
     async add(req, res, next) {
         const { source = 'auto', target, text, href, collection_id } = req.body;
-        const user = req._authUser;
+        const user = req._userAuth;
 
         if(!target || !text || !collection_id)
             return next( new AppError(400));
@@ -72,7 +72,7 @@ module.exports = {
             return next( new AppError(500))
 
             // need to create collection model
-            
+
         // const collection = await Collection.findOne({ _id: collection_id, user_id: user._id });
 
         // if(!collection)

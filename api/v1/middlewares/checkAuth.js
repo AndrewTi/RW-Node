@@ -6,8 +6,10 @@ module.exports = {
     checkAuth(req, res, next) {
         const token = req.headers['x-accesstoken'] || req.body.token;
 
-        if(!token)
-            return next( new AppError(401));
+        if(!token) {
+            req._userAuth = null;
+            return next();
+        }
 
         decode(token, async (err, data) => {
             if(err)
@@ -22,5 +24,26 @@ module.exports = {
 
             res.json(user);
         })
+    },
+
+    userPermission(req, res, next) {
+        const user = req._userAuth;
+
+        if(!user)
+            return next( new AppError(401));
+
+        next();
+    },
+
+    adminPermission(req, res, next) {
+        const user = req._userAuth;
+
+        if(!user)
+            return next( new AppError(401));
+
+        if(user.role != 'admin')
+            return next( new AppError(403));
+
+        next();
     }
 };
