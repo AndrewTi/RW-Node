@@ -6,8 +6,6 @@ module.exports = {
     checkAuth(req, res, next) {
         const token = req.headers['x-accesstoken'] || req.body.token;
 
-        console.log(token, req.headers);
-
         if(!token)
             return next( new AppError(401));
 
@@ -21,7 +19,7 @@ module.exports = {
 
             if(!user)
                 return next( new AppError(401));
-                
+
             res.json(user);
         })
     }
