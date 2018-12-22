@@ -5,7 +5,7 @@ const User = new Schema({
     name: String,
     last_name: String,
     email: { type: String, lowercase: true, index: { unique: true }},
-    phone: { type: Number, default: null, index: { unique: true, partialFilterExpression: { phone: { $type: Schema.Types.Number }}}},
+    phone: { type: Number, default: null },
     password: { type: String, select: false, required: true },
     last_login: Date,
     tokens: { type: Array, select: false, default: [

@@ -134,6 +134,35 @@ module.exports = {
 
         res.json({ user });
     },
-    async update(req, res, next) {},
-    async remove(req, res, next) {},
+
+    async updateMe(req, res, next) {
+        const user = req._userAuth;
+        const data = {
+            name,
+            last_name,
+            phone,
+            email
+        } = req.body;
+
+        if(Object.keys(data)[0])
+            return next( new AppError(400));
+
+        const result = await user.update(data);
+
+        if(!result)
+            return next( new AppError(500));
+
+        res.json({ ok: true });
+    },
+
+    async remove(req, res, next) {
+        const user = req._user;
+
+        const result = await user.destroy();
+
+        if(!result)
+            return next( new AppError(500));
+
+        res.json({ ok: true });
+    },
 }
