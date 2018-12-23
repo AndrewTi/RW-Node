@@ -1,4 +1,5 @@
 const Collection = require('../models/collections');
+const Wrods = require('../models/words');
 const AppError = require('../../../libs/app-error');
 
 module.exports = {
@@ -9,6 +10,16 @@ module.exports = {
             return next( new AppError(404));
 
         req._collection = collection;
+    },
+
+    async _findWord(req, res, next, word) {
+        const word = await Wrods.findById(word);
+
+        if(!word)
+            return next( new AppError(404));
+
+        req._word;
+        next();
     },
 
     async create(req, res, next) {
@@ -28,7 +39,7 @@ module.exports = {
 
         res.json({ collection });
     },
-    
+
     async update(req, res, next) {
         const collection = req._collection;
         const { name } = req.body;
@@ -54,7 +65,19 @@ module.exports = {
 
         res.json({ ok:true });
     },
-    async removeWrod(req, res, next) {},
+
+    async removeWrod(req, res, next) {
+        const collection = req._collection;
+        const word = req._word;
+
+        const result = await collection.update({ $pull: { words: { word_id: word._id }}});
+
+        console.log(result);
+        if(!result)
+            return next( new AppError(500));
+
+        res.json({ ok: true });
+    },
 
     // words into files
     // get all words source --- target
