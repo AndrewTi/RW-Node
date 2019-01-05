@@ -1,5 +1,9 @@
 const passwordHash = require('password-hash');
-const validator    = require('validator');
+const { 
+    isEmail, 
+    isMobilePhone, 
+    isByteLength 
+} = require('validator');
 
 const Collections = require('../models/collections');
 const AppError    = require('../../../libs/app-error');
@@ -61,8 +65,6 @@ module.exports = {
         if(!email || !phone && !password)
             return next( new AppError(400))
 
-        const { isEmail, isMobilePhone, isByteLength } = validator;
-
         let checkPhone = '';
 
         if(phone)
@@ -123,6 +125,35 @@ module.exports = {
         res.json({ token: generatedToken });
     },
 
+    async login(req, res, next) {
+        const { 
+            email,
+            phone,
+            password 
+        } = req.body;
+
+        if(!email || !phone && !password)
+            return next( new AppError(400))
+
+        let checkPhone = '';
+
+        if(phone)
+            checkPhone = (phone[0] == '+') ? phone : '+' + phone;
+
+        if(!(
+            isEmail(email.toString()) || isMobilePhone(checkPhone)
+            &&
+            isByteLength(password.toString(), { min: 6, max: 128 })
+        ))
+            return next( new AppError(400) );
+
+        let query = null;
+
+        if(email)
+            query = { email, password }
+        else 
+            query = { phone, password }
+    }
 
     /**
      * 
