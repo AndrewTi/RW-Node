@@ -17,12 +17,13 @@ module.exports = {
 
             const { iss: id } = data;
 
-            const user = await Users.findOne({ _id: id, tokens: { $elemMatch: { token }}});
+            const user = await Users.findOne({ _id: id, tokens: { $elemMatch: { token }}}).populate('collections');
 
             if(!user)
-                return next( new AppError(401));
+                return next( new AppError(404));
 
-            res.json(user);
+            req._userAuth = user;
+            next();
         })
     },
 

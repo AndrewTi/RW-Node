@@ -5,9 +5,9 @@ const Collection = new Schema({
     user_id: Schema.Types.ObjectId,
     name: String,
     words: [{
-        word_id: Schema.Types.ObjectId,
+        word_id: { type: Schema.Types.ObjectId, ref: 'Words' },
         url: String,
-        notes: String
+        notes: String,
     }]
 }, { timestamps: true, collection: 'collections' });
 

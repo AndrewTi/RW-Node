@@ -8,6 +8,7 @@ const User = new Schema({
     phone: { type: Number, default: null },
     password: { type: String, select: false, required: true },
     last_login: Date,
+    collections: [{ type: Schema.Types.ObjectId, ref: 'Collection' }],
     tokens: { type: Array, select: false, default: [
         {
             token: String,

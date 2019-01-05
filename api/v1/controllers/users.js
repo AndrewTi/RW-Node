@@ -97,6 +97,8 @@ module.exports = {
         if(!user)
             return next( new AppError(500) );
 
+        const { token: generatedToken, expDate } = token.create(user._id);
+
         const collection = await Collections.create({
             user_id: user._id,
             name: 'All',
@@ -107,8 +109,6 @@ module.exports = {
 
         if(!collection)
             return next( new AppError(500) );
-
-        const { token: generatedToken, expDate } = token.create(user._id);
         
         await user.updateOne({ $push: {
             tokens: {
@@ -116,7 +116,8 @@ module.exports = {
                 exp: expDate,
                 device: device,
                 last_use: new Date()
-            }
+            },
+            collections: collection._id
         }}).catch(err => console.log(err));
 
         res.json({ token: generatedToken });
@@ -143,6 +144,12 @@ module.exports = {
      */
     async getByid(req, res, next) {
         const user = req._user;
+
+        res.json({ user });
+    },
+
+    async getMe(req, res, next) {
+        const user = req._userAuth;
 
         res.json({ user });
     },
