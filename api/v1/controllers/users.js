@@ -1,9 +1,10 @@
 const passwordHash = require('password-hash');
 const validator    = require('validator');
 
-const AppError = require('../../../libs/app-error');
-const User     = require('../models/users');
-const token    = require('../../../libs/token');
+const Collections = require('../models/collections');
+const AppError    = require('../../../libs/app-error');
+const User        = require('../models/users');
+const token       = require('../../../libs/token');
 
 /**
  * @apiDefine UserData
@@ -94,6 +95,17 @@ module.exports = {
         const user = await User.create(data).catch(err => console.log(err) );
 
         if(!user)
+            return next( new AppError(500) );
+
+        const collection = await Collections.create({
+            user_id: user._id,
+            name: 'All',
+            words: []
+        }).catch(err => {
+            console.log(err);
+        })
+
+        if(!collection)
             return next( new AppError(500) );
 
         const { token: generatedToken, expDate } = token.create(user._id);
