@@ -17,7 +17,6 @@ const token       = require('../../../libs/token');
  * @apiParam {String} [last_name] lastname of user
  * @apiParam {String} [email]
  * @apiParam {Number} [phone]
- * @apiParam {String} password
   */
 
 
@@ -44,6 +43,7 @@ module.exports = {
      * @apiGroup Users
      * 
      * @apiUse UserData
+     * @apiParam {String} password
      * 
      * @apiSuccess {String} token
      */
@@ -125,6 +125,35 @@ module.exports = {
         res.json({ token: generatedToken });
     },
 
+
+    /**
+     * 
+     * @api {POST} /users/login Login
+     * @apiName Login
+     * @apiGroup Users
+     * @apiVersion  0.0.1
+     * 
+     * 
+     * @apiParam  {String} [email] 
+     * @apiParam  {String} [phone] 
+     * @apiParam  {String} password
+     * 
+     * @apiSuccess (200) {Object} token 
+     * 
+     * @apiParamExample  {type} Request-Example:
+     * {
+     *     property : value
+     * }
+     * 
+     * 
+     * @apiSuccessExample {type} Success-Response:
+     * {
+     *     ok : true,
+     *     token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9...
+     * }
+     * 
+     * 
+     */
     async login(req, res, next) {
         const device = (req._device) ? req._device.type : 'undefined';
         const { 
@@ -168,8 +197,7 @@ module.exports = {
                 exp: expDate,
                 device: device,
                 last_use: new Date()
-            },
-            collections: collection._id
+            }
         }}).catch(err => console.log(err));
 
         res.json({ ok: true, token: generatedToken })
@@ -199,12 +227,37 @@ module.exports = {
         res.json({ user });
     },
 
+     /**
+     * 
+     * @api {GET} /users/me
+     * @apiName GetYourSelf
+     * @apiGroup Users
+     * @apiVersion  0.0.1
+     * 
+     * 
+     * @apiSuccess (200) {Object} user 
+     * 
+     * @apiSuccessExample {object} Success-Response:
+     * {
+     *     user : {...}
+     * }
+     * */
     async getMe(req, res, next) {
         const user = req._userAuth;
 
         res.json({ user });
     },
 
+    /**
+     * @api {PUT} / method to create new users in the app
+     * @apiVersion 0.0.1
+     * @apiName Create
+     * @apiGroup Users
+     * 
+     * @apiUse UserData
+     * 
+     * @apiSuccess {String} token
+     */
     async updateMe(req, res, next) {
         const user = req._userAuth;
         const data = {
@@ -225,6 +278,24 @@ module.exports = {
         res.json({ ok: true });
     },
 
+    /**
+     * 
+     * @api {DELETE} /:id Remove User
+     * @apiName RemoveUser
+     * @apiGroup Users
+     * @apiVersion  0.0.1
+     * 
+     * 
+     * @apiSuccess (200) {Object} ok 
+     * 
+     * 
+     * @apiSuccessExample {json} Success-Response:
+     * {
+     *     ok : true
+     * }
+     * 
+     * 
+     */
     async remove(req, res, next) {
         const user = req._user;
 
@@ -234,5 +305,5 @@ module.exports = {
             return next( new AppError(500));
 
         res.json({ ok: true });
-    },
+    }
 }
