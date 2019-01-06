@@ -126,6 +126,7 @@ module.exports = {
     },
 
     async login(req, res, next) {
+        const device = (req._device) ? req._device.type : 'undefined';
         const { 
             email,
             phone,
@@ -150,10 +151,29 @@ module.exports = {
         let query = null;
 
         if(email)
-            query = { email, password }
+            query = { email }
         else 
-            query = { phone, password }
-    }
+            query = { phone }
+
+        const user = await User.findOne(query);
+
+        if(!passwordHash.verify(password, user.password))
+            return next( new AppError(400) );
+
+        const { token: generatedToken, expDate } = token.create(user._id);
+
+        await user.updateOne({ $push: {
+            tokens: {
+                token: generatedToken,
+                exp: expDate,
+                device: device,
+                last_use: new Date()
+            },
+            collections: collection._id
+        }}).catch(err => console.log(err));
+
+        res.json({ ok: true, token: generatedToken })
+    },
 
     /**
      * 
