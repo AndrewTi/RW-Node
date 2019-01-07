@@ -1,8 +1,12 @@
 const route = require('express').Router();
 
-// route
+const {
+    translate
+} = require('../controllers/words');
+
+route
 //     .param('id', )
-//     .post('/translate', )
+    .post('/translate', translate);
 //     .post('/', )
 //     .get('/:id', )
 //     .put('/:id', )

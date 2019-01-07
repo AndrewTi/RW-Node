@@ -27,7 +27,7 @@ module.exports = {
      * 
      * @apiSuccessExample {JSON} Success-Response:
      * {
-            "transalte": {
+            "translate": {
                 "sentences": [{
                     "trans": "працюй зі мною",
                     "orig": "work with me",
@@ -56,7 +56,7 @@ module.exports = {
         if(!transl)
             return next( new AppError(500))
 
-        res.json({ transalte: transl });
+        res.json({ translate: transl });
     },
 
     async add(req, res, next) {

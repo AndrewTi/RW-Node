@@ -19,6 +19,7 @@
     "jsonwebtoken": "8.3.0",
     "mongoose": "5.4.0",
     "node-device-detector": "1.1.2",
+    "node-fetch": "2.3.0",
     "password-hash": "1.2.2",
     "pm2": "3.2.3",
     "uuid": "3.3.2",
