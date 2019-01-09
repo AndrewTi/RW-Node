@@ -45,19 +45,23 @@ module.exports = {
      * 
      * 
      */
-    async translate(req, res, next) {
-        const { source = 'auto', target, text } = req.body;
+    
 
-        if(!target || !text)
-            return next( new AppError(400));
+     // 
 
-        const transl = await transalte(source, target, text).catch(err => console.log(err));
+    // async translate(req, res, next) {
+    //     const { source = 'auto', target, text } = req.body;
 
-        if(!transl)
-            return next( new AppError(500))
+    //     if(!target || !text)
+    //         return next( new AppError(400));
 
-        res.json({ translate: transl });
-    },
+    //     const transl = await transalte(source, target, text).catch(err => console.log(err));
+
+    //     if(!transl)
+    //         return next( new AppError(500))
+
+    //     res.json({ translate: 'test' });
+    // },
 
     async add(req, res, next) {
         const { source = 'auto', target, text, href, collection_id } = req.body;

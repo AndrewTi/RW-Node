@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "pm2 start rw-pm2.config.js",
-    "prod": "pm2 start rw-pm2-prod.config.js"
+    "prod": "pm2 start rw-pm2-prod.config.js",  
+    "deploy-dev": "ansible-playbook deploy/deploy.yml -i deploy/hosts"
   },
   "author": "",
   "license": "ISC",

@@ -6,7 +6,7 @@ const {
 
 route
 //     .param('id', )
-    .post('/translate', translate);
+    // .post('/translate', translate);
 //     .post('/', )
 //     .get('/:id', )
 //     .put('/:id', )
